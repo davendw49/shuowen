@@ -2,6 +2,9 @@ data/*
 app/sam/*
 app/*.txt
 app/*.docx
+app/img/*
+app/sampleimg/*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
