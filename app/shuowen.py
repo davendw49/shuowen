@@ -8,6 +8,7 @@ import json
 import os
 import base64
 import imghdr
+import argparse
 from wand.image import Image
 from tqdm import tqdm
 from docx import Document
@@ -162,6 +163,7 @@ class tuban():
                 self.character[this_booknum] = this_character
             pre_num = this_booknum
             flag += 1
+        return -1
     
     def array2dict(self):
         '''
@@ -252,9 +254,9 @@ class tuban():
         for k in tqdm(self.ch):
             if k[0] in self.dictionary.keys():
                 paragraph_character = document.add_paragraph(k[0])
-                if style == 1:
+                if style == "1":
                     paragraph_character.add_run("  "+str(self.dictionary[k[0]]))
-                if style <= 2:
+                if style == "2" or style == "1":
                     paragraph_character.add_run("  ")
                     paragraph_character.add_run().add_picture("sampleimg/"+str(self.dictionary[k[0]])+".png", width=Cm(1.5))
                 
@@ -284,22 +286,26 @@ class tuban():
 if __name__ == '__main__':
     
     parser = argparse.ArgumentParser(description='Shuowen Platform.')
-    parser.add_argument('-f', '--file', default="../data/test1.docx", help='input wechat address')
+    parser.add_argument('-f', '--file', default="../data/test1.docx", help='input docx address')
     parser.add_argument('-m', '--mode', default="docx", help='return in docx or html')
     parser.add_argument('-s', '--style', default="3", help='output with img or id')
     args = parser.parse_args()
     
     tb = tuban(args.file)
     try:
-        tb.parse()
+        flag = tb.parse()
         tb.array2dict_save()
     except:
-        tb.get_error()
-    if args.mode == "docx":
-        tb.get_output_docx_by_docx(args.style)
-    elif args.mode == "html":
-        tb.get_output_html()
+        flag = -2
+    if flag == -1:
+        if args.mode == "docx":
+            tb.dict2order_save()
+            tb.get_output_docx_by_docx(args.style)
+        elif args.mode == "html":
+            tb.dict2order_save()
+            tb.get_output_html()
+        else:
+            print("Wrong Mode")
     else:
-        print("Wrong Mode")
-    
-    tb.clean_cache()
+        print(tb.get_error())
+    # tb.clean_cache()
