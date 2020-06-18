@@ -1,0 +1,8 @@
+pypandoc==1.4
+python_docx==0.8.10
+PyDocX==0.9.10
+tqdm==4.46.0
+Wand==0.5.9
+PyMySQL==0.9.3
+beautifulsoup4==4.9.1
+docx==0.2.4
