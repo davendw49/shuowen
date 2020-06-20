@@ -58,3 +58,30 @@ updated ancientChinese toolkit
 - `tb.get_error()` should be printed out while the document has been analysis
 - `file` uploaded should use the same name (rename at the backend)
 - `tqdm` should show at the frontend
+
+how to use my code in pyqt5:
+
+- first the user need to choose the sytle
+    1. order + sample img + character
+    2. sample img + character
+    3. only character
+- we only suggest to set the output mode as a word
+
+so, after the optional setting, we got the param `style = (1, 2, 3)`
+
+```
+    tb = tuban("path/to/file")
+    try:
+        flag = tb.parse()
+        tb.array2dict_save()
+    except:
+        flag = -2
+    
+    if flag == -1:
+        tb.dict2order_save()
+        tb.get_output_docx_by_docx(style)
+    else:
+        print(tb.get_error())
+```
+
+The errors need to print on screen.
