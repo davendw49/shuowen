@@ -2,8 +2,8 @@ data/*
 app/sam/*
 app/*.txt
 app/*.docx
-app/img/*
-app/sampleimg/*
+app/utils/img/*
+app/utils/sampleimg/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
